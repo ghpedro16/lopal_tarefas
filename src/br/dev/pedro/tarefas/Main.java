@@ -12,6 +12,9 @@ import java.util.List;
 import br.dev.pedro.tarefas.dao.FuncionarioDAO;
 import br.dev.pedro.tarefas.model.Funcionario;
 import br.dev.pedro.tarefas.model.Tarefa;
+import br.dev.pedro.tarefas.ui.FrameFuncionario;
+import br.dev.pedro.tarefas.ui.FrameListaFuncionario;
+import br.dev.pedro.tarefas.utils.Utils;
 
 public class Main {
 	
@@ -20,41 +23,30 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		List<String> frutas = new ArrayList<String>();
-		List<Funcionario> funcionarios = new ArrayList<Funcionario>();
-		List<Double> numeros = new ArrayList<Double>();
+		new FrameListaFuncionario();
 		
-		frutas.add("abacaxi");
-		frutas.add("goiaba");
-		frutas.add("maçã");
-		frutas.add("mamão");
+//		new FrameFuncionario();
 		
-		numeros.add(4.9);
-		numeros.add(6.7);
+//		FuncionarioDAO dao = new FuncionarioDAO(new Funcionario());
+//		List<Funcionario> funcionarios = dao.exibirFuncionarios();
+//		
+//		for (Funcionario f : funcionarios) {
+//			System.out.println(f.getNome());
+//		}
 		
-		Funcionario funcionario = new Funcionario();
-		funcionario.setCodigo(5);
-		funcionario.setNome("Rubens");
-		funcionario.setMatricula("25142871");
-		funcionario.setEmail("rubens@gmail.com");
-
-		Funcionario funcionario2 = new Funcionario();
-		funcionario.setCodigo(6);
-		funcionario.setNome("Cecilia");
-		funcionario.setMatricula("25140763");
-		funcionario.setEmail("cecilia@gmail.com");
-		
-		funcionarios.add(funcionario);
-		
-		System.out.println(frutas);
-		System.out.println(funcionarios);
-		
-		for (Funcionario f : funcionarios) {
-			System.out.println(f.getNome());
-			System.out.println(f.getEmail());
-		}
-		
-//		FuncionarioDAO dao = new FuncionarioDAO(funcionario);
+//		Funcionario funcionario = new Funcionario();
+//		funcionario.setCodigo(Utils.gerarUUID());
+//		funcionario.setNome("Rubens");
+//		funcionario.setTelefone("25142871");
+//		funcionario.setEmail("rubens@gmail.com");
+//
+//		Funcionario funcionario2 = new Funcionario();
+//		funcionario2.setCodigo(Utils.gerarUUID());
+//		funcionario2.setNome("Maria");
+//		funcionario2.setTelefone("25140763");
+//		funcionario2.setEmail("maria@gmail.com");
+//		
+//		FuncionarioDAO dao = new FuncionarioDAO(funcionario2);
 //		dao.gravar();
 //		
 //		System.out.println(funcionario.toString());
