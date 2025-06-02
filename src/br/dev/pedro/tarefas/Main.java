@@ -14,6 +14,7 @@ import br.dev.pedro.tarefas.model.Funcionario;
 import br.dev.pedro.tarefas.model.Tarefa;
 import br.dev.pedro.tarefas.ui.FrameFuncionario;
 import br.dev.pedro.tarefas.ui.FrameListaFuncionario;
+import br.dev.pedro.tarefas.ui.FrameTelaInicial;
 import br.dev.pedro.tarefas.utils.Utils;
 
 public class Main {
@@ -23,9 +24,9 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		new FrameListaFuncionario();
-		
-//		new FrameFuncionario();
+		new FrameTelaInicial();
+			//new FrameListaFuncionario();
+			//new FrameFuncionario();
 		
 //		FuncionarioDAO dao = new FuncionarioDAO(new Funcionario());
 //		List<Funcionario> funcionarios = dao.exibirFuncionarios();
