@@ -21,6 +21,10 @@ public class Tarefa {
 		
 	}
 	
+	public Tarefa () {
+		
+	}
+	
 	public String getTitulo() {
 		return titulo;
 	}
@@ -77,4 +81,11 @@ public class Tarefa {
 		return dataConclusao;
 	}
 
+	@Override
+	public String toString() {
+		return this.codigo + "," + this.titulo + "," + this.descricao + "," + this.dataInicial +
+				"," + this.prazo + "," + this.dataConclusao + "," + this.status + 
+				"," + this.responsavel + "\n";
+	}
+	
 }

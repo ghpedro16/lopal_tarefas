@@ -72,8 +72,6 @@ public class FrameFuncionario {
 		btnSair = new JButton("Sair");
 		btnSair.setBounds(130, 290, 100, 40);
 		
-		
-		
 		painel.add(labelCodigo);
 		painel.add(txtCodigo);
 		painel.add(labelNome);

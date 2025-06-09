@@ -32,7 +32,7 @@ public class FrameListaFuncionario {
 	
 	private void criarTela() {
 		JFrame tela = new JFrame();
-		tela.setTitle("Cadastro de Funcionários");
+		tela.setTitle("Lista de Funcionários");
 		tela.setSize(600, 600);
 		tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		tela.setResizable(false);
@@ -84,7 +84,6 @@ public class FrameListaFuncionario {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new FrameFuncionario(tela);
-				
 				
 			}
 		});

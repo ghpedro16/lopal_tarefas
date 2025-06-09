@@ -54,7 +54,7 @@ public class FrameTelaInicial {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new FrameTarefas();
+				new FrameListaTarefas();
 				
 			}
 		});
