@@ -20,7 +20,6 @@ public class FuncionarioDAO {
 	}
 	
 	public void gravar() {
-		
 		try {
 			BufferedWriter bw = ff.getBufferedWriter();
 			

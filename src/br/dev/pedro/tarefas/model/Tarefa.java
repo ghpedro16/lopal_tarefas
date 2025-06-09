@@ -21,8 +21,6 @@ public class Tarefa {
 		
 	}
 	
-	public Tarefa () {}
-	
 	public String getTitulo() {
 		return titulo;
 	}

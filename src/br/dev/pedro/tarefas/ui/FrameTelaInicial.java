@@ -19,7 +19,7 @@ public class FrameTelaInicial {
 	}
 	
 	private void criarTela() {
-		JFrame tela = new JFrame("Tela Inicial");
+		JFrame tela = new JFrame("Gerenciador de Tarefas");
 		tela.setSize(400, 400);
 		tela.setLocationRelativeTo(null);
 		tela.setLayout(null);

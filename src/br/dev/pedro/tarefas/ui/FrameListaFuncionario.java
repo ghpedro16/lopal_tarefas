@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -21,8 +22,6 @@ public class FrameListaFuncionario {
 	private JTable tableFuncionarios;
 	private JScrollPane scrollFuncionarios;
 	private JButton btnNovo;
-	private JButton btnExcluir;
-	private JButton btnAlterar;
 	private JButton btnSair;
 	
 	private Font fontTitulo = new Font("Arial", Font.BOLD, 26);
@@ -67,20 +66,44 @@ public class FrameListaFuncionario {
 		tableFuncionarios = new JTable(dados, colunas);
 		
 		scrollFuncionarios = new JScrollPane(tableFuncionarios);
-		scrollFuncionarios.setBounds(10, 70, 500, 300);
+		scrollFuncionarios.setBounds(10, 70, 565, 400);
 				
 		btnNovo = new JButton("Cadastrar");
-		btnNovo.setBounds(10, 380, 150, 40);
+		btnNovo.setBounds(10, 490, 150, 40);
+		
+		btnSair = new JButton("Sair");
+		btnSair.setBounds(170, 490, 150, 40);
 				
 		painel.add(labelTitulo);		
 		painel.add(scrollFuncionarios);
 		painel.add(btnNovo);
+		painel.add(btnSair);
 		
 		btnNovo.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new FrameFuncionario(tela);
+				
+				
+			}
+		});
+		
+		btnSair.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				int resposta = JOptionPane.showConfirmDialog(
+						tela,
+						"Confirma a saída do sistema?",
+						"Sair do sistema",
+						JOptionPane.YES_NO_OPTION
+				);
+				
+				if (resposta == 0) {
+					tela.dispose();
+				}
 				
 			}
 		});
