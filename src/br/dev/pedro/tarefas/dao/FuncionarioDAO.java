@@ -21,7 +21,8 @@ public class FuncionarioDAO {
 	
 	public void gravar() {
 		try {
-			BufferedWriter bw = ff.getBufferedWriter("C:\\Users\\25132515\\tarefa\\funcionarios.csv", true);
+			// Senai: "C:\\Users\\25132515\\tarefa\\funcionarios.csv"
+			BufferedWriter bw = ff.getBufferedWriter("C:\\Users\\pedro\\tarefa\\funcionarios.csv", true);
 			
 			bw.write(funcionario.toString());
 			bw.flush();
@@ -36,7 +37,9 @@ public class FuncionarioDAO {
 		List<Funcionario> funcionarios = new ArrayList<>();
 		
 		try {
-			BufferedReader br = ff.getBufferedReader("C:\\Users\\25132515\\tarefa\\funcionarios.csv");
+			
+			// Senai: "C:\\Users\\25132515\\tarefa\\funcionarios.csv"
+			BufferedReader br = ff.getBufferedReader("C:\\Users\\pedro\\tarefa\\funcionarios.csv");
 			String linha = br.readLine();
 			
 			do {

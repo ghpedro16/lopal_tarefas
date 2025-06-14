@@ -3,12 +3,24 @@ package br.dev.pedro.tarefas.ui;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
+import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import br.dev.pedro.tarefas.dao.TarefasDAO;
+import br.dev.pedro.tarefas.model.Funcionario;
+import br.dev.pedro.tarefas.model.Status;
+import br.dev.pedro.tarefas.model.Tarefa;
+import br.dev.pedro.tarefas.utils.Utils;
 
 public class FrameTarefas {
 	
@@ -26,7 +38,10 @@ public class FrameTarefas {
 	private JTextField txtPrazo;
 	private JTextField txtDataConclusao;
 	
-	private JButton btnGravar;
+	JComboBox<Status> boxStatus;
+	JComboBox<String> boxFuncionario;
+	
+	private JButton btnSalvar;
 	private JButton btnSair;
 	
 	public FrameTarefas() {
@@ -55,25 +70,33 @@ public class FrameTarefas {
 		labelDataInicial.setBounds(20, 150, 200, 30);
 		txtDataInicial = new JTextField();
 		txtDataInicial.setBounds(20, 180, 200, 30);
+		txtDataInicial.setEnabled(false);
 		
 		labelPrazo = new JLabel("Prazo: ");
 		labelPrazo.setBounds(20, 215, 200, 30);
 		txtPrazo = new JTextField();
 		txtPrazo.setBounds(20, 245, 200, 30);
+		txtPrazo.setEnabled(false);
 		
 		labelDataConclusao = new JLabel("Data Conclusão: ");
 		labelDataConclusao.setBounds(20, 280, 200, 30);
 		txtDataConclusao = new JTextField();
 		txtDataConclusao.setBounds(20, 310, 200, 30);
+		txtDataConclusao.setEnabled(false);
 		
 		labelStatus = new JLabel("Status: ");
 		labelStatus.setBounds(20, 345, 200, 30);
+		boxStatus = new JComboBox<Status>(Status.values());
+		boxStatus.setBounds(20, 375, 200, 30);
 		
 		labelFuncionario = new JLabel("Funcionário: ");
 		labelFuncionario.setBounds(20, 410, 200, 30);
+		boxFuncionario = new JComboBox<>();
+		lerArquivo("C:\\Users\\pedro\\tarefa\\funcionarios.csv");
+		boxFuncionario.setBounds(20, 440, 200, 30);
 		
-		btnGravar = new JButton("Gravar");
-		btnGravar.setBounds(20, 500, 100, 40);
+		btnSalvar = new JButton("Salvar");
+		btnSalvar.setBounds(20, 500, 100, 40);
 		
 		btnSair = new JButton("Sair");
 		btnSair.setBounds(130, 500, 100, 40);
@@ -91,14 +114,34 @@ public class FrameTarefas {
 		painel.add(txtDataInicial);
 		painel.add(txtPrazo);
 		painel.add(txtDataConclusao);
-		painel.add(btnGravar);
+		painel.add(boxStatus);
+		painel.add(boxFuncionario);
+		painel.add(btnSalvar);
 		painel.add(btnSair);
 		
-		btnGravar.addActionListener(new ActionListener() {
+		btnSalvar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Tarefa tarefa = new Tarefa();
+				tarefa.setCodigo(Utils.gerarUUID());
+				tarefa.setTitulo(txtTitulo.getText());
+				tarefa.setDescricao(txtDescricao.getText());
+//				tarefa.setDataInicial(null);
+//				tarefa.setPrazo(null);
+				tarefa.setStatus((Status) boxStatus.getSelectedItem());
+				tarefa.setResponsavel((String) boxFuncionario.getSelectedItem());
 				
+				TarefasDAO dao = new TarefasDAO(tarefa);
+				dao.gravar();
+				
+				JOptionPane.showMessageDialog(tela,
+						"Tarefa gravada com sucesso!",
+						"Sucesso",
+						JOptionPane.INFORMATION_MESSAGE
+				);
+				
+				limparFormulario();
 				
 			}
 		});
@@ -123,6 +166,32 @@ public class FrameTarefas {
 		});
 		
 		tela.setVisible(true);
+	}
+	
+	private void lerArquivo (String path) {
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\pedro\\tarefa\\funcionarios.csv"));
+			br.readLine();
+			String linha;
+            while ((linha = br.readLine()) != null) {
+                String[] partes = linha.split(",");
+                if (partes.length > 0) {
+                    boxFuncionario.addItem(partes[1]);
+                }
+            }
+		} catch (IOException e) {
+			e.getMessage();
+		}
+		
+	}
+	
+	private void limparFormulario() {
+		txtTitulo.setText(null);
+		txtDescricao.setText(null);
+		txtDataInicial.setText(null);
+		txtPrazo.setText(null);
+		txtDataConclusao.setText(null);
+		txtTitulo.requestFocus();
 	}
 
 
