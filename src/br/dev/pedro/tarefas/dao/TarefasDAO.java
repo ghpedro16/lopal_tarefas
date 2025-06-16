@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.dev.pedro.tarefas.factory.FileFactory;
+import br.dev.pedro.tarefas.model.Funcionario;
 import br.dev.pedro.tarefas.model.Tarefa;
 
 public class TarefasDAO {
@@ -46,14 +47,15 @@ public class TarefasDAO {
 				String[] tarefa = linha != null ? linha.split(",") : null;
 				
 				Tarefa t = new Tarefa();
-				t.setTitulo(tarefa[0]);
-				t.setDescricao(tarefa[1]);
-				t.setDataInicial(null);
-				t.setPrazo(null);
-				t.setStatus(null);
-				t.setResponsavel(null);
 				
-				tarefas.add(t);
+				if (tarefa != null) {
+					t.setCodigo(tarefa[0]);
+					t.setTitulo(tarefa[1]);
+					t.setResponsavel();
+					
+					tarefas.add(t);
+				}
+				
 				
 			} while (linha != null);
 			

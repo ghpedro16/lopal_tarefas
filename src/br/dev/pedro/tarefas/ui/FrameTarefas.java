@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
@@ -16,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import br.dev.pedro.tarefas.dao.FuncionarioDAO;
 import br.dev.pedro.tarefas.dao.TarefasDAO;
 import br.dev.pedro.tarefas.model.Funcionario;
 import br.dev.pedro.tarefas.model.Status;
@@ -92,8 +95,12 @@ public class FrameTarefas {
 		labelFuncionario = new JLabel("Funcionário: ");
 		labelFuncionario.setBounds(20, 410, 200, 30);
 		boxFuncionario = new JComboBox<>();
-		lerArquivo("C:\\Users\\pedro\\tarefa\\funcionarios.csv");
 		boxFuncionario.setBounds(20, 440, 200, 30);
+		FuncionarioDAO dao = new FuncionarioDAO(null);
+		List<Funcionario> funcionarios = dao.exibirFuncionarios();
+		for (Funcionario f : funcionarios) {
+			boxFuncionario.addItem(f.getNome());
+		}
 		
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.setBounds(20, 500, 100, 40);
@@ -130,10 +137,20 @@ public class FrameTarefas {
 //				tarefa.setDataInicial(null);
 //				tarefa.setPrazo(null);
 				tarefa.setStatus((Status) boxStatus.getSelectedItem());
-				tarefa.setResponsavel((String) boxFuncionario.getSelectedItem());
 				
-				TarefasDAO dao = new TarefasDAO(tarefa);
-				dao.gravar();
+				String nome;
+				String nomeEscolhido;
+				List<Funcionario> funcionarios = dao.exibirFuncionarios();
+				for(Funcionario funcionario : funcionarios) {
+					nome = funcionario.getNome();
+					nomeEscolhido = String.valueOf(boxFuncionario.getSelectedItem());
+					if(nomeEscolhido.equals(nome)) {
+						tarefa.setResponsavel(funcionario);
+						TarefasDAO tDao = new TarefasDAO(tarefa);
+						tDao.gravar();
+						}
+				}
+				
 				
 				JOptionPane.showMessageDialog(tela,
 						"Tarefa gravada com sucesso!",
@@ -166,23 +183,6 @@ public class FrameTarefas {
 		});
 		
 		tela.setVisible(true);
-	}
-	
-	private void lerArquivo (String path) {
-		try {
-			BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\pedro\\tarefa\\funcionarios.csv"));
-			br.readLine();
-			String linha;
-            while ((linha = br.readLine()) != null) {
-                String[] partes = linha.split(",");
-                if (partes.length > 0) {
-                    boxFuncionario.addItem(partes[1]);
-                }
-            }
-		} catch (IOException e) {
-			e.getMessage();
-		}
-		
 	}
 	
 	private void limparFormulario() {
